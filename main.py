@@ -37,10 +37,30 @@ class HotelBase(BaseModel):
 class HotelCreate(HotelBase):
     pass
 
-class HotelOut(HotelBase):
+from pydantic import BaseModel
+from typing import List, Optional, Union
+
+class HotelOut(BaseModel):
     id: int
+    hotel: str
+    description: Optional[str] = None
+    phone_number: Optional[int] = None
+    email: Optional[str] = None
+    location: Optional[str] = None
+    capacity: Optional[int] = None
+    no_of_rooms: Optional[int] = None
+    rating: Optional[int] = None
+    wifi: Optional[bool] = None
+    parking: Optional[bool] = None
+    images: Optional[Union[dict, list]] = None   
+    type: Optional[str] = None                   
+    min_price: Optional[int] = None
+    max_price: Optional[int] = None
+    food_price: Optional[int] = None
+
     class Config:
         orm_mode = True
+
 
 @app.post("/hotels", response_model=HotelOut)
 def create_hotel(hotel: HotelCreate, db: Session = Depends(get_db)):
