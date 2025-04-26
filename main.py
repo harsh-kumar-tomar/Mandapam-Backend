@@ -5,9 +5,9 @@ from pydantic import BaseModel, EmailStr
 from database import SessionLocal, engine
 from models import Hotel as DBHotel, Base
 from typing import Literal
+import insert_hotels
 
 Base.metadata.create_all(bind=engine)
-
 app = FastAPI()
 
 def get_db():
