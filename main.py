@@ -5,9 +5,24 @@ from pydantic import BaseModel, EmailStr
 from database import SessionLocal, engine
 from models import Hotel as DBHotel, Base
 from typing import Literal
+from fastapi.middleware.cors import CORSMiddleware
 
 Base.metadata.create_all(bind=engine)
 app = FastAPI()
+
+from fastapi.middleware.cors import CORSMiddleware
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "https://mandapam-reversion.vercel.app",  
+        "http://localhost:3000"                   
+    ],    
+    allow_credentials=True,
+    allow_methods=["*"],  
+    allow_headers=["*"],  
+)
+
 
 def get_db():
     db = SessionLocal()
